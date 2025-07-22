@@ -103,15 +103,15 @@ No frameworks like Lombok are used to keep the code explicit and clear.
 ```
 src
 ├── main
-│   ├── java/com/challenge
-│   │   ├── controller
-│   │   ├── service
-│   │   ├── model
-│   │   ├── discount
-│   │   ├── config
-│   │   └── exception
-│   └── resources/products.json
-└── test/java/com/challenge
+│   ├── java/com/example/productapi
+│   │   ├── controller       
+│   │   ├── service          
+│   │   ├── model            
+│   │   ├── data             
+│   │   └── exception       
+│   └── resources           
+├── test
+
 ```
 🧊 Example Requests
 
