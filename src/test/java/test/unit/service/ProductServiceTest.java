@@ -1,9 +1,9 @@
 package test.unit.service;
 
-import com.example.productapi.model.Price;
-import com.example.productapi.model.Product;
-import com.example.productapi.repository.ProductRepository;
-import com.example.productapi.service.ProductService;
+import productapi.model.Price;
+import productapi.model.Product;
+import productapi.repository.ProductRepository;
+import productapi.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,9 +1,9 @@
 package test.unit.controller;
 
-import com.example.productapi.controller.ProductController;
-import com.example.productapi.model.Price;
-import com.example.productapi.model.Product;
-import com.example.productapi.service.ProductService;
+import productapi.controller.ProductController;
+import productapi.model.Price;
+import productapi.model.Product;
+import productapi.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

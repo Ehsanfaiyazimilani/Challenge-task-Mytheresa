@@ -1,6 +1,6 @@
-package com.example.productapi.repository;
+package productapi.repository;
 
-import com.example.productapi.model.Product;
+import productapi.model.Product;
 import java.util.List;
 
 public interface ProductRepository {

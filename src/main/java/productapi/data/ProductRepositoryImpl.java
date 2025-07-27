@@ -1,8 +1,8 @@
-package com.example.productapi.data;
+package productapi.data;
 
-import com.example.productapi.model.Price;
-import com.example.productapi.model.Product;
-import com.example.productapi.repository.ProductRepository;
+import productapi.model.Price;
+import productapi.model.Product;
+import productapi.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

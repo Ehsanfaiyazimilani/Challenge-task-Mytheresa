@@ -1,4 +1,4 @@
-package com.example.productapi.model;
+package productapi.model;
 
 public class Product {
     private String sku;

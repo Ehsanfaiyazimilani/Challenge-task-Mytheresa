@@ -1,8 +1,8 @@
-package com.example.productapi.service;
+package productapi.service;
 
-import com.example.productapi.model.Price;
-import com.example.productapi.model.Product;
-import com.example.productapi.repository.ProductRepository;
+import productapi.model.Price;
+import productapi.model.Product;
+import productapi.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
