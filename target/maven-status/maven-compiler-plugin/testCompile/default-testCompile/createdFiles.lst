@@ -1,0 +1,4 @@
+test\integration\ProductApiIntegrationTest.class
+test\unit\service\ProductServiceTest.class
+test\unit\controller\ProductControllerUnitTest.class
+test\util\JsonUtil.class

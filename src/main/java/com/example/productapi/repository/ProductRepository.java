@@ -1,4 +1,4 @@
-package com.example.productapi.data;
+package com.example.productapi.repository;
 
 import com.example.productapi.model.Product;
 import java.util.List;

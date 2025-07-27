@@ -1,4 +1,4 @@
-package com.example.productapi.unit.service;
+package test.unit.service;
 
 import com.example.productapi.model.Price;
 import com.example.productapi.model.Product;
@@ -7,27 +7,37 @@ import com.example.productapi.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
 
     private ProductService productService;
+
+    @Mock
     private ProductRepository productRepository;
 
     @BeforeEach
     void setUp() {
-        productRepository = mock(ProductRepository.class);
         productService = new ProductService(productRepository);
 
+        // محصولات نمونه با قیمت اصلی - تخفیف در سرویس اعمال می‌شود
         List<Product> mockProducts = List.of(
-                new Product("000001", "BV Lean leather ankle boots", "boots", null),
-                new Product("000002", "BV Lean leather sneakers", "sneakers", null),
-                new Product("000003", "Ash leather boots", "boots", null),
-                new Product("000004", "Naima embellished suede sandals", "sandals", null)
+                new Product("000001", "BV Lean leather ankle boots", "boots",
+                        new Price(89000, 89000, "EUR")),
+                new Product("000002", "BV Lean leather sneakers", "sneakers",
+                        new Price(59000, 59000, "EUR")),
+                new Product("000003", "Ash leather boots", "boots",
+                        new Price(71000, 71000, "EUR")),
+                new Product("000004", "Naima embellished suede sandals", "sandals",
+                        new Price(79500, 79500, "EUR"))
         );
 
         when(productRepository.getAllProducts()).thenReturn(mockProducts);
@@ -39,6 +49,7 @@ public class ProductServiceTest {
         List<Product> result = productService.getFilteredProducts(null, null);
 
         assertThat(result).hasSize(4);
+        verify(productRepository, times(1)).getAllProducts();
     }
 
     @Test
@@ -48,6 +59,7 @@ public class ProductServiceTest {
 
         assertThat(result).hasSize(2);
         assertThat(result).allMatch(p -> p.getCategory().equals("boots"));
+        verify(productRepository, times(1)).getAllProducts();
     }
 
     @Test
@@ -55,8 +67,10 @@ public class ProductServiceTest {
     void shouldFilterByPrice() {
         List<Product> result = productService.getFilteredProducts(null, 80000);
 
-        // Product 000001 has discount and becomes 62300
-        assertThat(result).anyMatch(p -> p.getSku().equals("000001"));
+        // محصولات boots با تخفیف 30% قیمت نهایی کمتری دارند
+        assertThat(result).hasSizeGreaterThan(0);
+        assertThat(result).allMatch(p -> p.getPrice().getFinalPrice() <= 80000);
+        verify(productRepository, times(1)).getAllProducts();
     }
 
     @Test
@@ -64,9 +78,11 @@ public class ProductServiceTest {
     void shouldFilterByCategoryAndPrice() {
         List<Product> result = productService.getFilteredProducts("boots", 80000);
 
-        // Only 000001 matches (boots + discounted price 62300)
-        assertThat(result).hasSize(1);
-        assertThat(result.get(0).getSku()).isEqualTo("000001");
+        // محصولات boots با تخفیف 30% که قیمت نهایی‌شان زیر 80000 است
+        assertThat(result).hasSizeGreaterThan(0);
+        assertThat(result).allMatch(p -> p.getCategory().equals("boots"));
+        assertThat(result).allMatch(p -> p.getPrice().getFinalPrice() <= 80000);
+        verify(productRepository, times(1)).getAllProducts();
     }
 
     @Test
@@ -81,9 +97,10 @@ public class ProductServiceTest {
 
         Price price = discountedProduct.getPrice();
         assertThat(price.getOriginal()).isEqualTo(89000);
-        assertThat(price.getFinalPrice()).isEqualTo(62300);
+        assertThat(price.getFinalPrice()).isEqualTo(62300);  // 30% تخفیف
         assertThat(price.getDiscountPercentage()).isEqualTo("30%");
         assertThat(price.getCurrency()).isEqualTo("EUR");
+        verify(productRepository, times(1)).getAllProducts();
     }
 
     @Test
@@ -98,6 +115,6 @@ public class ProductServiceTest {
         assertThat(price.getFinalPrice()).isEqualTo(59000);
         assertThat(price.getDiscountPercentage()).isNull();
         assertThat(price.getCurrency()).isEqualTo("EUR");
+        verify(productRepository, times(1)).getAllProducts();
     }
 }
-

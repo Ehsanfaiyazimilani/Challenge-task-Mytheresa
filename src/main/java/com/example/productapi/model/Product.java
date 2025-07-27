@@ -4,22 +4,38 @@ public class Product {
     private String sku;
     private String name;
     private String category;
-    private int originalPrice; 
-    private Price price;       
+    private Price price;
 
-    public Product(String sku, String name, String category, int originalPrice) {
+    public Product(String sku, String name, String category, Price price) {
         this.sku = sku;
         this.name = name;
         this.category = category;
-        this.originalPrice = originalPrice;
+        this.price = price;
     }
 
-    public int getOriginalPrice() {
-        return originalPrice;
+    // Getters and Setters
+    public String getSku() {
+        return sku;
     }
 
-    public void setOriginalPrice(int originalPrice) {
-        this.originalPrice = originalPrice;
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Price getPrice() {
@@ -29,20 +45,4 @@ public class Product {
     public void setPrice(Price price) {
         this.price = price;
     }
-
-   public String getSku() {
-    return sku;
-}
-
-public void setSku(String sku) {
-    this.sku = sku;
-}
-
-public String getCategory() {
-    return category;
-}
-
-public void setCategory(String category) {
-    this.category = category;
-}
 }

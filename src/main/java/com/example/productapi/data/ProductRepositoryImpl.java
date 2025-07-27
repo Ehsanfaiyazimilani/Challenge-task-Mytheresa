@@ -1,42 +1,28 @@
 package com.example.productapi.data;
 
+import com.example.productapi.model.Price;
 import com.example.productapi.model.Product;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.productapi.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
 
-    private final List<Product> products = new ArrayList<>();
-
-    @PostConstruct
-    public void init() {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            InputStream is = getClass().getClassLoader().getResourceAsStream("products.json");
-            JsonNode root = mapper.readTree(is).get("products");
-            for (JsonNode node : root) {
-                String sku = node.get("sku").asText();
-                String name = node.get("name").asText();
-                String category = node.get("category").asText();
-                int price = node.get("price").asInt();
-
-                Product product = new Product(sku, name, category, price);  // originalPrice set here
-                products.add(product);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public List<Product> getAllProducts() {
-        return products;
+        return List.of(
+                new Product("000001", "BV Lean leather ankle boots", "boots",
+                        new Price(89000, 89000, "EUR")),
+                new Product("000002", "BV Lean leather ankle boots", "boots",
+                        new Price(99000, 99000, "EUR")),
+                new Product("000003", "BV Lean leather ankle boots", "boots",
+                        new Price(71000, 71000, "EUR")),
+                new Product("000004", "Naima embellished suede sandals", "sandals",
+                        new Price(79500, 79500, "EUR")),
+                new Product("000005", "Nathane leather sneakers", "sneakers",
+                        new Price(59000, 59000, "EUR"))
+        );
     }
 }

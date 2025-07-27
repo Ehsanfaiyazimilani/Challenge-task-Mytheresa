@@ -1,10 +1,9 @@
 package com.example.productapi.service;
 
-import com.example.productapi.data.ProductRepository;
 import com.example.productapi.model.Price;
 import com.example.productapi.model.Product;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.productapi.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,59 +11,58 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
-    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
-    private final ProductRepository repository;
+    private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository repository) {
-        this.repository = repository;
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
-    public List<Product> getProducts(String category, Integer priceLessThan, int page, int size) {
-        logger.info("getProducts called with category={}, priceLessThan={}, page={}, size={}",
-                category, priceLessThan, page, size);
+    public List<Product> getFilteredProducts(String category, Integer maxPrice) {
+        List<Product> products = productRepository.getAllProducts();
 
-        long start = System.currentTimeMillis();
-
-        List<Product> filteredProducts = repository.getAllProducts().stream()
-                .filter(p -> category == null || p.getCategory().equalsIgnoreCase(category))
-                .filter(p -> priceLessThan == null || p.getOriginalPrice() <= priceLessThan)
+        return products.stream()
+                .map(this::applyDiscountLogic) // اعمال تخفیف
+                .filter(product -> filterByCategory(product, category))
+                .filter(product -> filterByPrice(product, maxPrice))
                 .collect(Collectors.toList());
-
-        logger.info("Number of products after filtering: {}", filteredProducts.size());
-
-        List<Product> pagedProducts = filteredProducts.stream()
-                .skip((long) page * size)
-                .limit(size)
-                .map(this::applyDiscount)
-                .collect(Collectors.toList());
-
-        long end = System.currentTimeMillis();
-        logger.info("Returning {} products for page {} (processed in {} ms)", pagedProducts.size(), page, (end - start));
-        return pagedProducts;
     }
 
-    private Product applyDiscount(Product p) {
-        int originalPrice = p.getOriginalPrice();
-        int discount = 0;
+    private Product applyDiscountLogic(Product product) {
+        // کپی محصول برای جلوگیری از تغییر داده اصلی
+        Product discountedProduct = new Product(
+                product.getSku(),
+                product.getName(),
+                product.getCategory(),
+                new Price(product.getPrice().getOriginal(),
+                        product.getPrice().getFinalPrice(),
+                        product.getPrice().getCurrency())
+        );
 
-        if ("boots".equalsIgnoreCase(p.getCategory())) {
-            discount = 30;
+        // اعمال تخفیف 30% برای کتگوری boots
+        if ("boots".equals(product.getCategory())) {
+            int originalPrice = product.getPrice().getOriginal();
+            int discountedPrice = Math.round(originalPrice * 0.7f); // 30% تخفیف
+
+            Price discountedPriceObj = new Price(
+                    originalPrice,
+                    discountedPrice,
+                    "30%",
+                    product.getPrice().getCurrency()
+            );
+
+            discountedProduct.setPrice(discountedPriceObj);
         }
-        if ("000003".equals(p.getSku())) {
-            discount = Math.max(discount, 15);
-        }
 
-        int finalPrice = (discount > 0) ? originalPrice * (100 - discount) / 100 : originalPrice;
-        String discountPercentage = (discount > 0) ? discount + "%" : null;
+        return discountedProduct;
+    }
 
-        p.setPrice(new Price(originalPrice, finalPrice, discountPercentage));
+    private boolean filterByCategory(Product product, String category) {
+        return category == null || category.equals(product.getCategory());
+    }
 
-        if (discount > 0) {
-            logger.debug("Applied discount {} to product SKU={}, originalPrice={}, finalPrice={}",
-                    discount + "%", p.getSku(), originalPrice, finalPrice);
-        }
-
-        return p;
+    private boolean filterByPrice(Product product, Integer maxPrice) {
+        return maxPrice == null || product.getPrice().getFinalPrice() <= maxPrice;
     }
 }
