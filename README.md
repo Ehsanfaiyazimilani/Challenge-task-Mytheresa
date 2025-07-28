@@ -75,7 +75,7 @@ mvn spring-boot:run
 ```
 ## 🧪 Run Tests
 ```
-mvn com.example.productapi.unit.controller.test
+mvn test
 ```
 All tests are written using pure in-memory logic — no need for networking or filesystem access.
 
