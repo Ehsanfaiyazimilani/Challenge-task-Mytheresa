@@ -77,7 +77,25 @@ mvn spring-boot:run
 mvn test
 ```
 All tests are written using pure in-memory logic — no need for networking or filesystem access.
+## Viewing Documentation
 
+The project documentation is generated as HTML files located in the `target/site/apidocs` folder. To view the documentation, follow these steps:
+
+1. Open the `index.html` file located inside `target/site/apidocs`.
+2. You can open this file with any web browser (e.g., Chrome, Firefox) to see the full project documentation.
+
+> **Note:**  
+> If you want to open it from the command line, you can use the following commands:
+
+On Windows:
+
+```bash
+start target/site/apidocs/index.html
+```
+On Linux / macOS:
+```bash
+open target/site/apidocs/index.html
+```
 ## 🧱 Architecture Overview
 Controller Layer – exposes the API
 
