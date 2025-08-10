@@ -6,5 +6,10 @@
 *.properties linguist-vendored
 .idea/* linguist-vendored
 
+# Ignore HTML, CSS, and JavaScript files in language statistics
+*.html linguist-vendored
+*.css linguist-vendored
+*.js linguist-vendored
+
 # Force .java files to be recognized as Java
 *.java linguist-language=Java
