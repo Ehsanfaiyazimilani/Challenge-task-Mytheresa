@@ -2,7 +2,7 @@
 
 This project is a solution to a coding challenge that requires designing a simple yet scalable API to return a list of discounted products. Built with **Java 17** and **Spring Boot**, it uses an in-memory JSON-based data source and follows clean architecture principles for maintainability and testability.
 
-[![Java CI with Maven](https://github.com/Ehsanfaiyazimilani/Challenge-task-Mytheresa/actions/workflows/maven.yml/badge.svg)](https://github.com/Ehsanfaiyazimilani/Challenge-task-Mytheresa/actions/workflows/maven.yml)---
+[![Java CI with Maven](https://github.com/Ehsanfaiyazimilani/Challenge-task-Mytheresa/actions/workflows/maven.yml/badge.svg)](https://github.com/Ehsanfaiyazimilani/Challenge-task-Mytheresa/actions/workflows/maven.yml)
 
 ## 🚀 Features
 
