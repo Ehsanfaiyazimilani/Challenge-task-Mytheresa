@@ -121,13 +121,21 @@ No frameworks like Lombok are used to keep the code explicit and clear.
 src
 ├── main
 │   ├── java/com/example/productapi
-│   │   ├── controller       
-│   │   ├── service          
-│   │   ├── model            
-│   │   ├── data             
-│   │   └── exception       
-│   └── resources           
-├── com.example.productapi.unit.controller.test
+│   │   ├── controller          # REST API endpoints
+│   │   ├── service             # Business logic
+│   │   ├── model               # Data models (e.g., Product, Discount)
+│   │   ├── data                # In-memory data source (e.g., JSON files)
+│   │   └── exception           # Custom exceptions and error handling
+│   └── resources               # Configuration and static files
+├── test
+│   └── java/com/example/productapi
+│       ├── controller          # Unit tests for controllers
+│       ├── service             # Unit tests for services
+│       └── exception           # Unit tests for exception handling
+└── target                      # Compiled classes and build artifacts
+    └── site
+        └── apidocs             # Generated JavaDoc documentation
+
 
 ```
 🧊 Example Requests
