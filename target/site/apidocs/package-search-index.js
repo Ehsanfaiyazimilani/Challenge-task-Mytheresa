@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"productapi.controller"},{"l":"productapi.data"},{"l":"productapi.exception"},{"l":"productapi.model"},{"l":"productapi.repository"},{"l":"productapi.service"}];updateSearchResults();

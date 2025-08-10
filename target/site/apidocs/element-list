@@ -1,0 +1,7 @@
+productapi
+productapi.controller
+productapi.data
+productapi.exception
+productapi.model
+productapi.repository
+productapi.service
