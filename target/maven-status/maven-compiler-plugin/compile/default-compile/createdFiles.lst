@@ -1,4 +1,3 @@
-com\example\productapi\ProductApiApplication.class
 productapi\exception\GlobalExceptionHandler.class
 productapi\model\Product.class
 productapi\controller\ProductController.class
@@ -7,3 +6,4 @@ productapi\service\ProductService.class
 productapi\exception\ResourceNotFoundException.class
 productapi\model\Price.class
 productapi\repository\ProductRepository.class
+productapi\ProductApiApplication.class

@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ProductController.class)
-@ContextConfiguration(classes = com.example.productapi.ProductApiApplication.class)
+@ContextConfiguration(classes = productapi.ProductApiApplication.class)
 public class ProductControllerUnitTest {
 
     @Autowired
