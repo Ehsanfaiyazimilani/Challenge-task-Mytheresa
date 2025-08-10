@@ -1,0 +1,10 @@
+# Exclude non-code files from language statistics
+*.md linguist-vendored
+*.yml linguist-vendored
+*.json linguist-vendored
+*.xml linguist-vendored
+*.properties linguist-vendored
+.idea/* linguist-vendored
+
+# Force .java files to be recognized as Java
+*.java linguist-language=Java
