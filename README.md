@@ -77,7 +77,7 @@ mvn spring-boot:run
 mvn test
 ```
 All tests are written using pure in-memory logic — no need for networking or filesystem access.
-## 📚 Viewing Documentation
+## 📚 Documentation
 
 The project documentation is generated as HTML files located in the `target/site/apidocs` folder. To view the documentation, follow these steps:
 
