@@ -116,7 +116,7 @@ Filtering and discounting are completely decoupled for clean separation of conce
 
 No frameworks like Lombok are used to keep the code explicit and clear.
 
-📁 Project Structure
+## 📁 Project Structure
 ```
 src
 ├── main
@@ -138,7 +138,7 @@ src
 
 
 ```
-🧊 Example Requests
+## 🧊 Example Requests
 
 # Get all products
 curl http://localhost:8080/products
